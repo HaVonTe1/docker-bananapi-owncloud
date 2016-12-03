@@ -1,0 +1,25 @@
+version: '2'
+networks:
+    ownnet:
+      driver: bridge  
+services:
+    postgres:
+      image: encodeering/postgres-armhf:9.4
+      ports:
+       - 5432
+      environment:
+       - POSTGRES_PASSWORD=admin 
+      networks:
+       - ownnet
+    owncloud:
+      image: havonte/arch-lamp-owncloud
+      hostname: bananapi.clgpykcfspzglw7b.myfritz.net
+      networks:
+       - ownnet
+      ports:
+       - 443:443
+      depends_on:
+       - postgres
+      volumes:
+       - /media/ext1000/owncloud:/home/owncloud/data
+

@@ -1,0 +1,28 @@
+version: '2'
+networks:
+    ownnet:
+      driver: bridge  
+services:
+    mariadb:
+      image: lsioarmhf/mariadb
+      ports:
+       - 3306
+      environment:
+       - PUID=33 
+       - PGID=33 
+       - MYSQL_ROOT_PASSWORD=admin
+       - TZ=Europe/Berlin 
+      networks:
+       - ownnet
+    owncloud:
+      image: havonte/owncloud-single
+      hostname: bananapi.clgpykcfspzglw7b.myfritz.net
+      networks:
+       - ownnet
+      ports:
+       - 443:443
+      depends_on:
+       - mariadb
+      volumes:
+       - /media/ext1000/owncloud:/home/owncloud/data
+

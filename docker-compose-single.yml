@@ -1,0 +1,15 @@
+version: '2'
+networks:
+    dockernet:
+        external: true
+services:
+    owncloud:
+      image: havonte/owncloud-single
+      hostname: bananapi.clgpykcfspzglw7b.myfritz.net
+      networks:
+       - dockernet
+      ports:
+       - 443:443
+      volumes:
+       - /media/ext1000/owncloud:/home/owncloud/data
+
