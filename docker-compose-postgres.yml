@@ -12,8 +12,8 @@ services:
       networks:
        - ownnet
     owncloud:
-      image: havonte/arch-lamp-owncloud
-      hostname: bananapi.clgpykcfspzglw7b.myfritz.net
+      image: havonte/owncloud-single
+      hostname: $DYNDNS_TLD
       networks:
        - ownnet
       ports:
@@ -21,5 +21,5 @@ services:
       depends_on:
        - postgres
       volumes:
-       - /media/ext1000/owncloud:/home/owncloud/data
+       - $HOST_DIR:$CONTAINER_DIR
 
