@@ -11,7 +11,7 @@ This project is a fork of [docker-owncloud](https://github.com/greyltc/docker-ow
 
 # Features
 + Based on [Archlinux for ARMv7](https://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2)
-The Dockerfile and scripts to build the base image will be part of a separated repository.
+The Dockerfile and scripts to build the base image is part of a [separated repository](https://github.com/HaVonTe1/docker-bananapi-archlinux-base).
 + Running on Apache2 with PHP7 and a lot of performance tweaks
 + 100% TLS secured
 + ready for letsencrypt
