@@ -8,6 +8,9 @@ This project is a fork of [docker-owncloud](https://github.com/greyltc/docker-ow
 | ------------- |:-------------:| -----:|
 |<a title="von dotCloud, Inc. [Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3ADocker_(container_engine)_logo.png"><img width="512" alt="Docker (container engine) logo" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Docker_%28container_engine%29_logo.png"/></a>|<a title="By Fxstation (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3AFront_of_Banana_Pi.JPG"><img width="256" alt="Front of Banana Pi" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Front_of_Banana_Pi.JPG/256px-Front_of_Banana_Pi.JPG"/></a>|<a title="von www.owncloud.org (www.owncloud.org) [LGPL (http://www.gnu.org/licenses/lgpl.html)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3AOwncloud-logo.png"><img width="512" alt="Owncloud-logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Owncloud-logo.png"/></a>|
 
+# under construction
+
+This project is currently under development and a lot of things are need to be done.
 
 # Features
 + Based on [Archlinux for ARMv7](https://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2)
@@ -87,3 +90,7 @@ Well, why use docker at all?
 
 ## Why archlinux?
 This distribution comes with the latest versions of all libs. 
+
+# TODOs / open issues 
++ make the apps directory persistent
++ fix certbot/letsencrypt

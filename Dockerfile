@@ -5,7 +5,6 @@ RUN install-httpd
 
 # generate our ssl key
 ADD setupApacheSSLKey.sh /usr/sbin/setup-apache-ssl-key
-ENV DO_SSL_SELF_GENERATION true
 ENV SUBJECT /C=US/ST=CA/L=CITY/O=ORGANIZATION/OU=UNIT/CN=localhost
 ENV DO_SSL_LETS_ENCRYPT_FETCH false
 ENV EMAIL fail
