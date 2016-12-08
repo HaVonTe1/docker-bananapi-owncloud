@@ -57,6 +57,14 @@ Explanation: the owncloud inside the container runs with the `httpd` user which 
 + /home/owncloud/data replace this with any path you want. It will be created inside the container. But remember to set this path as data directory when you setup the owncloud.
 + Replace the name of the docker image at the end of the command with the image name you chosed when you built the image.
 
+There are two other important owncloud directories:
++ apps - stores the owncloud apps and all their configurations
++ config - stores the config.php file
+
+You can use the script `realocate-apps-dir.sh" to:
+- copy all files from the apps dir of a running oc container - see the script for variables
+- set necessary permissions to the local apps dir
+
 ## composed with docker mariadb / postgres
 
 ```
@@ -92,5 +100,4 @@ Well, why use docker at all?
 This distribution comes with the latest versions of all libs. 
 
 # TODOs / open issues 
-+ make the apps directory persistent
 + fix certbot/letsencrypt

@@ -23,6 +23,12 @@ services:
        - 443:443
       depends_on:
        - mariadb
+      environment:
+       - SUBJECT=/C=DE/ST=B/L=CITY/O=§yourname/OU=UNIT/CN=$DYNDNS_TLD
+       - TARGET_SUBDIR=/
+       - VIRTUAL_HOST=$DYNDNS_TLD
       volumes:
-       - $HOST_DIR:$CONTAINER_DIR
+       - $hostOcpath/data:/usr/share/webapps/owncloud/data
+       - $hostOcpath/config:/usr/share/webapps/owncloud/config
+       - $hostOcpath/apps:/usr/share/webapps/owncloud/apps
 
