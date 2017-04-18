@@ -88,7 +88,7 @@ When you init your owncloud: the hostname of the dockerhost is 192.168.0.1
 
 # FAQ
 
-## Why running Owncloud in a docker constainer
+## Why running Owncloud in a docker container
 Well, why use docker at all?
 + easy upgrades
 + easy parallel instances
@@ -99,5 +99,31 @@ Well, why use docker at all?
 ## Why archlinux?
 This distribution comes with the latest versions of all libs. 
 
+## How to renew the certs of LetsEncrypt
+
+This is a bit tricky at the moment. The used certbot renews the certs via a validation process which needs unsecures access to the webserver from the internet. 
+Which mean no SSL and server running on port 80.
+To achieve this we need to restart the container with the following env:
+
+```
+      environment:
+       - SUBJECT=/C=$COUNTRY/ST=B/L=CITY=/O=$USER/OU=UNIT/CN=$YOUR_PUBLIC_DOMAIN
+       - VIRTUAL_HOST=$YOUR_PUBLIC_DOMAIN
+       - DO_SSL_SELF_GENERATION=true
+       - HOSTNAME=$YOUR_PUBLIC_DOMAIN
+       - ALLOW_INSECURE=true ## very important
+       - EMAIL=$EMAIL
+       - TERM=xterm # certbot is very bitchy in docker...
+     ports:
+       - 443:443
+       - 80:80 ## important
+```
+
+Just stop and restart your container with a temp. changed compose file with the abouve settings and inside the container run the following command:
+```
+certbot renew
+```
+Stop and restart your container with activated security.
+
 # TODOs / open issues 
-+ fix certbot/letsencrypt
++ renewing the certbot / letsencryp certs is a pain...
