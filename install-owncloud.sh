@@ -1,13 +1,28 @@
 #!/usr/bin/env bash
-set -x -e -u -o pipefail
+set -x -e -u -v -o pipefail
 
 # owncloud itself
 #gpg --recv-key 2D5D5E97F6978A26
 su owncloud -c 'gpg --recv-key 2D5D5E97F6978A26'
 
+mkdir /tmp/owncloud_install
+chown owncloud:owncloud -R /tmp/owncloud_install
+cd /tmp/owncloud_install
+cp /home/owncloud/PKGBUILD_OWNCLOUD PKGBUILD 
+cp /home/owncloud/owncloud-archive.install .
+
+export PATH=$PATH:/usr/bin/core_perl
+su owncloud -c 'makepkg -L PKGBUILD'
+#  install -D -m755 "${srcdir}/../set-oc-perms.sh" "${pkgdir}/usr/bin/set-oc-perms"
+#  install -m644 -D "${srcdir}/../apache.example.conf" -t "${pkgdir}/etc/webapps/owncloud"
+cp /home/owncloud/set-oc-perms.sh /usr/bin/set-oc-perms
+mkdir /etc/webapps/owncloud
+cp /home/owncloud/apache.example.conf /etc/webapps/owncloud/apache.example.conf
+
+chmod 755 /usr/bin/set-oc-perms
+chmod 644 /etc/webapps/owncloud/apache.example.conf
 
 # Install "owncloud" from AUR using local build file
-su owncloud -c 'BUILDDIR=/home/owncloud && makepkg PKGBUILD_OWNCLOUD'
 su owncloud -c 'pacman -U owncloud-archive*.tar.xz --noconfirm --needed --noedit -m --noprogressbar'
 
 #su owncloud -c 'pacaur -m --noprogressbar --noedit --noconfirm owncloud-archive'

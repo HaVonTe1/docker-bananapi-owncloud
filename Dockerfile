@@ -37,7 +37,12 @@ ENV OC_VERSION '10.0.2'
 ENV TARGET_SUBDIR owncloud
 ADD PKGBUILD_OWNCLOUD /home/owncloud/PKGBUILD_OWNCLOUD
 ADD install-owncloud.sh /usr/sbin/install-owncloud
+ADD owncloud-archive.install /home/owncloud/owncloud-archive.install
+ADD apache.example.conf /home/owncloud/apache.example.conf
+ADD set-oc-perms.sh /home/owncloud/set-oc-perms.sh
+
 RUN install-owncloud
+
 
 # add our config.php stub
 ADD configs/config.php /usr/share/webapps/owncloud/config/config.php
