@@ -109,7 +109,7 @@ To achieve this we need to restart the container with the following env:
       environment:
        - SUBJECT=/C=$COUNTRY/ST=B/L=CITY=/O=$USER/OU=UNIT/CN=$YOUR_PUBLIC_DOMAIN
        - VIRTUAL_HOST=$YOUR_PUBLIC_DOMAIN
-       - DO_SSL_SELF_GENERATION=true
+       - DO_SSL_SELF_GENERATION=false
        - HOSTNAME=$YOUR_PUBLIC_DOMAIN
        - ALLOW_INSECURE=true ## very important
        - EMAIL=$EMAIL

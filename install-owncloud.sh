@@ -1,32 +1,33 @@
 #!/usr/bin/env bash
-set -x -e -u -o pipefail
-
-# remove info.php (prevents server info leak)
-rm /srv/http/info.php
-
-# to mount SMB shares: 
-pacman -S --noconfirm --noprogress --needed smbclient 
-
-# for video file previews
-pacman -S --noconfirm --noprogress --needed ffmpeg
-
-# for document previews
-pacman -S --noconfirm --noprogress --needed libreoffice-fresh
-
-# for image previews
-pacman -S --noconfirm --noprogress --needed imagemagick ghostscript openexr openexr openexr libxml2 librsvg libpng libwebp
-
-# not 100% sure what needs this:
-pacman -S --noconfirm --noprogress --needed gamin
+set -x -e -u -v -o pipefail
 
 # owncloud itself
-gpg --recv-key 2D5D5E97F6978A26
+#gpg --recv-key 2D5D5E97F6978A26
 su owncloud -c 'gpg --recv-key 2D5D5E97F6978A26'
-su owncloud -c 'pacaur -m --noprogressbar --noedit --noconfirm owncloud-archive'
-pacman -U --noconfirm --needed /home/owncloud/.cache/pacaur/owncloud-archive/owncloud-archive-${OC_VERSION}-any.pkg.tar.xz
+
+mkdir /tmp/owncloud_install
+chown owncloud:owncloud -R /tmp/owncloud_install
+cd /tmp/owncloud_install
+cp /home/owncloud/PKGBUILD_OWNCLOUD PKGBUILD 
+cp /home/owncloud/owncloud-archive.install .
+
+export PATH=$PATH:/usr/bin/core_perl
+su owncloud -c 'makepkg -L PKGBUILD'
+#  install -D -m755 "${srcdir}/../set-oc-perms.sh" "${pkgdir}/usr/bin/set-oc-perms"
+#  install -m644 -D "${srcdir}/../apache.example.conf" -t "${pkgdir}/etc/webapps/owncloud"
+cp /home/owncloud/set-oc-perms.sh /usr/bin/set-oc-perms
+mkdir /etc/webapps
+mkdir /etc/webapps/owncloud
+cp /home/owncloud/apache.example.conf /etc/webapps/owncloud/apache.example.conf
+
+chmod 755 /usr/bin/set-oc-perms
+chmod 644 /etc/webapps/owncloud/apache.example.conf
+
+# Install "owncloud" from AUR using local build file
+pacman -U --noconfirm /tmp/owncloud_install/owncloud-archive-10.0.2-1-any.pkg.tar.xz
 
 # install some apps
-pacman -S --noconfirm --noprogress --needed owncloud-app-bookmarks owncloud-app-calendar owncloud-app-contacts owncloud-app-documents
+#pacman -S --noconfirm --noprogress --needed owncloud-app-bookmarks owncloud-app-calendar owncloud-app-contacts owncloud-app-documents
 
 # setup Apache for owncloud
 cp /etc/webapps/owncloud/apache.example.conf /etc/httpd/conf/extra/owncloud.conf
