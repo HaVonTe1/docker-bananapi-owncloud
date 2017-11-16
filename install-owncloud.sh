@@ -16,6 +16,7 @@ su owncloud -c 'makepkg -L PKGBUILD'
 #  install -D -m755 "${srcdir}/../set-oc-perms.sh" "${pkgdir}/usr/bin/set-oc-perms"
 #  install -m644 -D "${srcdir}/../apache.example.conf" -t "${pkgdir}/etc/webapps/owncloud"
 cp /home/owncloud/set-oc-perms.sh /usr/bin/set-oc-perms
+mkdir /etc/webapps
 mkdir /etc/webapps/owncloud
 cp /home/owncloud/apache.example.conf /etc/webapps/owncloud/apache.example.conf
 
@@ -23,13 +24,10 @@ chmod 755 /usr/bin/set-oc-perms
 chmod 644 /etc/webapps/owncloud/apache.example.conf
 
 # Install "owncloud" from AUR using local build file
-su owncloud -c 'pacman -U owncloud-archive*.tar.xz --noconfirm --needed --noedit -m --noprogressbar'
-
-#su owncloud -c 'pacaur -m --noprogressbar --noedit --noconfirm owncloud-archive'
-#pacman -U --noconfirm --needed /home/owncloud/.cache/pacaur/owncloud-archive/owncloud-archive-${OC_VERSION}-any.pkg.tar.xz
+pacman -U --noconfirm /tmp/owncloud_install/owncloud-archive-10.0.2-1-any.pkg.tar.xz
 
 # install some apps
-pacman -S --noconfirm --noprogress --needed owncloud-app-bookmarks owncloud-app-calendar owncloud-app-contacts owncloud-app-documents
+#pacman -S --noconfirm --noprogress --needed owncloud-app-bookmarks owncloud-app-calendar owncloud-app-contacts owncloud-app-documents
 
 # setup Apache for owncloud
 cp /etc/webapps/owncloud/apache.example.conf /etc/httpd/conf/extra/owncloud.conf
